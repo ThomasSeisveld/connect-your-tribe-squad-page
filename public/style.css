@@ -131,6 +131,8 @@ body {
   gap: 12px;
   margin-bottom: 20px;
   justify-content: center;
+  background: transparent;
+  padding: 0;
 }
 
 .tab {
@@ -197,9 +199,16 @@ body {
 }
 
 /* Squad */
-.squad {
+/* Semantic element support */
+section.squad {
   padding: 50px 20px;
   text-align: center;
+}
+
+section.squad-track,
+article.member,
+article.location {
+  /* Inherits class-based styling */
 }
 
 .squad-members {
@@ -211,22 +220,27 @@ body {
 }
 
 .member {
-  background: #8EA2A6;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 4px 4px 6px var(--purple);
+  background: linear-gradient(135deg, #8EA2A6 0%, #6b8a90 100%);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   margin-top: 25px;
   width: 200px;
-  height: 250px;
-  transition: all 1.2s ease;
-  flex: 0 0 250px;
+  min-height: 280px;
+  transition: all 0.3s ease;
+  flex: 0 0 200px;
   scroll-snap-align: center;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .member:hover {
-  transform: scale(1.05);
-  transition: 1.2s;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
 .squad-slider {
@@ -242,9 +256,11 @@ body {
 .squad-track {
   display: flex;
   gap: 20px;
-  padding: 10px;
+  padding: 20px 10px;
   margin: 0 auto;
   scroll-snap-type: x mandatory;
+  min-width: 100%;
+  background: transparent;
 }
 
 .squad-slider {
@@ -266,7 +282,7 @@ body {
 }
 
 .squad-slider::-webkit-scrollbar-thumb {
-  background: var(--purple);
+  background: var(--accent);
   border-radius: 10px;
 }
 
@@ -277,16 +293,19 @@ body {
 .member img {
   display: block;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 15px;
   border-radius: 50%;
   width: 7rem;
   height: 7rem;
   aspect-ratio: 1/1;
   object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 .member h3 {
-  margin: 15px 0 10px;
+  margin: 10px 0 15px;
+  font-size: 1.1rem;
+  color: white;
 }
 
 .btn {
@@ -297,6 +316,8 @@ body {
   text-decoration: none;
   color: var(--grey);
   transition: all 0.3s;
+  align-self: auto;
+  margin-top: auto;
 }
 .btn:hover {
   background: #5B7785;
@@ -384,12 +405,25 @@ body {
 }
 .location {
   width: 200px;
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.location:hover {
+  transform: translateY(-8px);
+}
+
+.location:hover img {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .location img {
   width: 100%;
   border-radius: 12px;
   box-shadow: 0 4px 6px var(--off-black);
+  transition: box-shadow 0.3s ease;
 }
 
 .location p {

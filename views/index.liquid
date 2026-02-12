@@ -6,68 +6,70 @@
     <header class="hero">
       <video class="hero-bg-video" src="assets/background/backgroundHVA.mp4" autoplay loop muted playsinline></video>
       <div class="hero-bg-blur"></div>
-      <div class="hero-content">
+      <section class="hero-content">
         <h1>Welkom op <br>de</br> squad page<br>van Squad</br>1i</h1>
-      </div>
-      <div class="team">
+      </section>
+      <section class="team">
         <h2 class="team-title">Het team</h2>
-        <div class="member">
+        <article class="member">
           <img src="assets/squadfoto's/Jaar 1/Squad1I-Thomas.JPG" alt="Thomas">
           <h3>Thomas</h3>
           <a href="https://thomasseisveld.github.io/profilecard-Thomas/" target="_blank" class="btn">Meer</a>
-        </div>
-        <div class="member">
+        </article>
+        <article class="member">
           <img src="assets/squadfoto's/Jaar 1/Squad1I-Tin.JPG" alt="Tin">
           <h3>Tin</h3>
           <a href="https://webtins.github.io/your-tribe-profile-card/" target="_blank" class="btn">Meer</a>
-        </div>
-        <div class="member">
+        </article>
+        <article class="member">
           <img src="assets/squadfoto's/Jaar 1/Squad1I-Oumaima.JPG" alt="Oumaima">
           <h3>Oumaima</h3>
           <a href="https://meemo99.github.io/your-tribe-profile-card/" target="_blank" class="btn">Meer</a>
-        </div>
-      </div>
+        </article>
+      </section>
     </header>
 
 
     <main class="main" role="main">
       <section class="row" aria-live="polite">
         <!-- Squad Page Panel -->
-        <div class="tabs" role="tablist" aria-label="Hoofd tabs">
+        <nav class="tabs" role="tablist" aria-label="Hoofd tabs">
           <button id="tab-squad" class="tab" role="tab" aria-selected="true" aria-controls="panel-squad" data-tab="panel-squad">Squad Page</button>
           <button id="tab-locaties" class="tab" role="tab" aria-selected="false" aria-controls="panel-locaties" data-tab="panel-locaties">Favoriete Locaties</button>
-        </div>
+        </nav>
   <article id="panel-squad" class="panel" role="tabpanel" data-active="true">
           <section class="squad">
             <h2>Squad Page</h2>
             <div class="squad-members">
               <div class="squad-slider">
-                <div class="squad-track">
+                <section class="squad-track">
                   {% for person in persons %}
-                  <div class="member">
+                  <article class="member">
                     <img src="{{ person.avatar }}" alt="{{ person.name }}">
                     <h3>{{ person.name }}</h3>
                     <a href="/student/{{ person.id }}" class="btn">Meer</a>
-                  </div>
+                  </article>
                   {% endfor %}
-                </div>
+                </section>
+              </div>
+            </div>
           </section>
         </article>
   <section id="panel-locaties" class="panel favorites" role="tabpanel" data-active="false">
           <h2>Favoriete Locaties</h2>
           <div class="locations">
-            <div class="location">
+            <article class="location">
               <img src="assets/Gebouw foto's/Kohnstamhuis.jpg" alt="Kohnstamhuis">
               <p>Kohnstamhuis</p>
-            </div>
-            <div class="location">
+            </article>
+            <article class="location">
               <img src="assets/Gebouw foto's/Theo Thijssenhuis.jpg" alt="Theo Thijssenhuis">
               <p>Theo Thijssenhuis</p>
-            </div>
-            <div class="location">
+            </article>
+            <article class="location">
               <img src="assets/Gebouw foto's/Wibauthuis.jpg" alt="Wibauthuis">
               <p>Wibauthuis</p>
-            </div>
+            </article>
           </div>
         </section>
       </section>
