@@ -199,16 +199,9 @@ body {
 }
 
 /* Squad */
-/* Semantic element support */
 section.squad {
   padding: 50px 20px;
   text-align: center;
-}
-
-section.squad-track,
-article.member,
-article.location {
-  /* Inherits class-based styling */
 }
 
 .squad-members {
