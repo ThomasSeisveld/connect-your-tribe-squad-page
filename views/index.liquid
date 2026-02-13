@@ -42,9 +42,9 @@
             <h2>Squad Page</h2>
             <form method="get" action="/" class="filter-form">
               <label for="filter-select">Filter op:</label>
-              <select id="filter-select" name="sort" onchange="this.form.submit()">
-                <option value="name" {% if sortBy == 'name' %}selected{% endif %}>Naam</option>
-                <option value="birthdate" {% if sortBy == 'birthdate' %}selected{% endif %}>Geboortedatum</option>
+              <select id="filter-select" name="filter" onchange="this.form.submit()">
+                <option value="name" {% if filterBy == 'name' %}selected{% endif %}>Naam</option>
+                <option value="birthdate" {% if filterBy == 'birthdate' %}selected{% endif %}>Geboortedatum</option>
               </select>
             </form>
             <section class="squad-members">
@@ -54,7 +54,7 @@
                   <article class="member" style="border: 3px solid {{ person.fav_color }};">
                     <img src="{{ person.avatar }}" alt="{{ person.name }}">
                     <h3>{{ person.name }}</h3>
-                    {% if sortBy == 'birthdate' and person.daysUntilBirthday %}
+                    {% if filterBy == 'birthdate' and person.daysUntilBirthday %}
                     <p class="birthday-countdown">{{ person.daysUntilBirthday }} dagen tot verjaardag</p>
                     {% endif %}
                     <a href="/student/{{ person.id }}" class="btn">Meer</a>

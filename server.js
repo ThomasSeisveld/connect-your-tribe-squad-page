@@ -52,7 +52,7 @@ app.use(express.urlencoded({extended: true}))
 app.get('/', async function (request, response) {
 
   // Get the sort parameter from the query string, default to 'name'
-  const sortBy = request.query.sort || 'name'
+  const filterBy = request.query.filter || 'name'
 
   // Functie om dagen tot verjaardag te berekenen
   function getDaysUntilBirthday(birthdateString) {
@@ -79,7 +79,7 @@ app.get('/', async function (request, response) {
   // Haal alle personen uit de WHOIS API op, van dit jaar, gesorteerd op basis van de gekozen veld
   const params = {
     // Sorteer op het geselecteerde veld
-    'sort': sortBy,
+    'sort': filterBy,
 
     // Geef aan welke data je per persoon wil terugkrijgen
     'fields': '*,squads.*',
@@ -96,8 +96,8 @@ app.get('/', async function (request, response) {
   // En haal daarvan de JSON op
   const personResponseJSON = await personResponse.json()
 
-  // Als gesorteerd op birthdate, voeg daysUntilBirthday toe aan elke persoon
-  if (sortBy === 'birthdate') {
+  // Als gefiltered op birthdate, voeg daysUntilBirthday toe aan elke persoon
+  if (filterBy === 'birthdate') {
     personResponseJSON.data.forEach(person => {
       person.daysUntilBirthday = getDaysUntilBirthday(person.birthdate)
     })
@@ -108,8 +108,8 @@ app.get('/', async function (request, response) {
   // console.log(personResponseJSON)
 
   // Render index.liquid uit de views map en geef de opgehaalde data mee als variabele, genaamd persons
-  // Geef ook de eerder opgehaalde squad data mee aan de view en de huidige sortBy
-  response.render('index.liquid', {persons: personResponseJSON.data, squads: squadResponseJSON.data, sortBy: sortBy})
+  // Geef ook de eerder opgehaalde squad data mee aan de view en de huidige filterBy
+  response.render('index.liquid', {persons: personResponseJSON.data, squads: squadResponseJSON.data, filterBy: filterBy})
 })
 
 // Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
