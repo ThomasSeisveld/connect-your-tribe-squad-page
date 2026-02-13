@@ -1,5 +1,76 @@
 {% render 'partials/head.liquid', title: person.name %}
+<style>
+    .theme-1 {
+    background-color: var(--c-deepsea); 
+    color: var(--c-moss);               
+}
 
+.theme-2 {
+    background-color: var(--c-tealwave);
+    color: var(--c-deepsea);
+}
+
+.theme-3 {
+    background-color: var(--c-moss);
+    color: var(--c-tealwave);
+}
+
+.theme-4 {
+    background-color: var(--c-amberglow);
+    color: var(--c-sunset);
+}
+
+.theme-5 {
+    background-color: var(--c-flame);
+    color: var(--c-amberglow);
+}
+</style>
 <a href="/">Back</a>
+
+ <ul>
+      {% for person in persons %}
+          <li class="card theme-{{ forloop.index0 | modulo: 5 | plus: 1 }}">
+            <details>
+              
+              <!--Voorkant van het kaartje-->
+              <summary>
+
+                <h2>
+                  <a href="/student/{{ person.id }}">
+                    <!--https://learn.microsoft.com/nl-nl/power-pages/configure/liquid/liquid-filters?utm_source=chatgpt.com#split-->
+                    {% assign words = person.name | split: ' ' %}
+                    {% assign rest = words | slice: 1, words.size | join: ' ' %}
+                    {{ words.first }}
+                    <br>
+                    {{ rest }}
+                  </a>
+                </h2>
+
+                <figure class="card-visual">
+                  {% if person.mugshot %}
+                  <img src="https://fdnd.directus.app/assets/{{ person.mugshot }}?width=500" alt="Profile picture">
+                  {% else %}
+                  <img src="/missing-mugshot.png" alt="No profile picture">
+                  {% endif %}
+                </figure>
+              </summary>
+
+              <!--Achterkant van het kaartje-->
+              <div class="card-back">
+                <p> {{ person.nickname }}</p>
+                <p>
+                  {% assign birthyear = person.birthdate | date: "%Y" | plus: 0 %}
+                  {% assign currentyear = "now" | date: "%Y" | plus: 0 %}
+                  {% assign age = currentyear | minus: birthyear %}
+                  {{ age }} jaar
+                </p>
+                <p>{{  person.bio }}</p>
+                <iframe><!--https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api--></iframe>
+              </div>
+            </details>
+            
+          </li>
+      {% endfor %}
+    </ul>
 
 {% render 'partials/foot.liquid', squads: squads %}

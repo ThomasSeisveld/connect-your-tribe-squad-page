@@ -46,6 +46,12 @@
                 <option value="name" {% if filterBy == 'name' %}selected{% endif %}>Naam</option>
                 <option value="birthdate" {% if filterBy == 'birthdate' %}selected{% endif %}>Geboortedatum</option>
               </select>
+              <label for="sort-select">Sorteer op:</label>
+              <select id="sort-select" name="sort" onchange="this.form.submit()">
+                <option value="name" {% if sortByraw == 'name' %}selected{% endif %}>Naam (A-Z)</option>
+                <option value="age" {% if sortByraw == 'age' %}selected{% endif %}>Leeftijd (jong naar oud)</option>
+                <option value="upcoming" {% if sortByraw == 'upcoming' %}selected{% endif %}>Verjaardag (komend)</option>
+              </select>
             </form>
             <section class="squad-members">
               <section class="squad-slider">
