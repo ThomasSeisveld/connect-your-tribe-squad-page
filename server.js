@@ -51,10 +51,35 @@ app.use(express.urlencoded({extended: true}))
 // Maak een GET route voor de index
 app.get('/', async function (request, response) {
 
-  // Haal alle personen uit de WHOIS API op, van dit jaar, gesorteerd op naam
+  // Get the sort parameter from the query string, default to 'name'
+  const sortBy = request.query.sort || 'name'
+
+  // Functie om dagen tot verjaardag te berekenen
+  function getDaysUntilBirthday(birthdateString) {
+    if (!birthdateString) return null
+    
+    const birthDate = new Date(birthdateString)
+    const today = new Date()
+    
+    // Zet het jaar van het geboortejaar naar dit jaar
+    let nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate())
+    
+    // Als de verjaardag al voorbij is dit jaar, bereken voor volgende jaar
+    if (nextBirthday < today) {
+      nextBirthday = new Date(today.getFullYear() + 1, birthDate.getMonth(), birthDate.getDate())
+    }
+    
+    // Bereken het verschil in milliseconden en zet om naar dagen
+    const timeDifference = nextBirthday - today
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
+    
+    return daysDifference
+  }
+
+  // Haal alle personen uit de WHOIS API op, van dit jaar, gesorteerd op basis van de gekozen veld
   const params = {
-    // Sorteer op naam
-    'sort': 'name',
+    // Sorteer op het geselecteerde veld
+    'sort': sortBy,
 
     // Geef aan welke data je per persoon wil terugkrijgen
     'fields': '*,squads.*',
@@ -71,13 +96,20 @@ app.get('/', async function (request, response) {
   // En haal daarvan de JSON op
   const personResponseJSON = await personResponse.json()
 
+  // Als gesorteerd op birthdate, voeg daysUntilBirthday toe aan elke persoon
+  if (sortBy === 'birthdate') {
+    personResponseJSON.data.forEach(person => {
+      person.daysUntilBirthday = getDaysUntilBirthday(person.birthdate)
+    })
+  }
+
   // personResponseJSON bevat gegevens van alle personen uit alle squads van dit jaar
   // Toon eventueel alle data in de console
   // console.log(personResponseJSON)
 
   // Render index.liquid uit de views map en geef de opgehaalde data mee als variabele, genaamd persons
-  // Geef ook de eerder opgehaalde squad data mee aan de view
-  response.render('index.liquid', {persons: personResponseJSON.data, squads: squadResponseJSON.data})
+  // Geef ook de eerder opgehaalde squad data mee aan de view en de huidige sortBy
+  response.render('index.liquid', {persons: personResponseJSON.data, squads: squadResponseJSON.data, sortBy: sortBy})
 })
 
 // Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen

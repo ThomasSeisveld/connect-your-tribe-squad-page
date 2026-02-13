@@ -300,7 +300,22 @@ section.squad {
   font-size: 1.1rem;
   color: white;
 }
+.birthday-countdown {
+  font-size: 0.85rem;
+  color: #ffd700;
+  font-weight: bold;
+  margin: 8px 0;
+  animation: pulse 2s ease-in-out infinite;
+}
 
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
 .btn {
   display: inline-block;
   padding: 8px 20px;
@@ -422,4 +437,47 @@ section.squad {
 .location p {
   margin-top: 10px;
   font-weight: bold;
+}
+/* Filter Form Styling */
+.filter-form {
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-form label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--white);
+}
+
+.filter-form select {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  background-color: var(--off-black);
+  color: var(--white);
+  font-family: 'Luckiest Guy';
+  letter-spacing: .20em;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-form select:hover {
+  border-color: var(--white);
+  box-shadow: 0 4px 8px rgba(196, 100, 255, 0.3);
+}
+
+.filter-form select:focus {
+  outline: none;
+  border-color: var(--white);
+  box-shadow: 0 4px 12px rgba(196, 100, 255, 0.5);
+}
+
+.filter-form select option {
+  background-color: var(--off-black);
+  color: var(--white);
 }

@@ -40,24 +40,34 @@
   <article id="panel-squad" class="panel" role="tabpanel" data-active="true">
           <section class="squad">
             <h2>Squad Page</h2>
-            <div class="squad-members">
-              <div class="squad-slider">
+            <form method="get" action="/" class="filter-form">
+              <label for="filter-select">Filter op:</label>
+              <select id="filter-select" name="sort" onchange="this.form.submit()">
+                <option value="name" {% if sortBy == 'name' %}selected{% endif %}>Naam</option>
+                <option value="birthdate" {% if sortBy == 'birthdate' %}selected{% endif %}>Geboortedatum</option>
+              </select>
+            </form>
+            <section class="squad-members">
+              <section class="squad-slider">
                 <section class="squad-track">
                   {% for person in persons %}
-                  <article class="member">
+                  <article class="member" style="border: 3px solid {{ person.fav_color }};">
                     <img src="{{ person.avatar }}" alt="{{ person.name }}">
                     <h3>{{ person.name }}</h3>
+                    {% if sortBy == 'birthdate' and person.daysUntilBirthday %}
+                    <p class="birthday-countdown">{{ person.daysUntilBirthday }} dagen tot verjaardag</p>
+                    {% endif %}
                     <a href="/student/{{ person.id }}" class="btn">Meer</a>
                   </article>
                   {% endfor %}
                 </section>
-              </div>
-            </div>
+              </section>
+            </section>
           </section>
   </article>
   <section id="panel-locaties" class="panel favorites" role="tabpanel" data-active="false">
           <h2>Favoriete Locaties</h2>
-          <div class="locations">
+          <section class="locations">
             <article class="location">
               <img src="assets/Gebouw foto's/Kohnstamhuis.jpg" alt="Kohnstamhuis">
               <p>Kohnstamhuis</p>
@@ -70,7 +80,7 @@
               <img src="assets/Gebouw foto's/Wibauthuis.jpg" alt="Wibauthuis">
               <p>Wibauthuis</p>
             </article>
-          </div>
+          </section>
         </section>
       </section>
     </main>
